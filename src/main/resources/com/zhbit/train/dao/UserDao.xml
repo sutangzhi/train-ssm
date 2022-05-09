@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.train.dao.UserDao">
+
+    <resultMap id="userMap" type="User">
+        <id column="u_id" property="uid"/>
+        <result column="account" property="account" />
+        <result column="password" property="password"/>
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
+        <result column="phone" property="phone" />
+        <result column="u_type" property="userType" />
+        <result column="u_true_name" property="trueName" />
+    </resultMap>
+
+<!--    User selectUserByAccount(@Param("account") String account);-->
+    <select id="selectUserByAccount" resultMap="userMap">
+        select * from user_tbl where account=#{account}
+    </select>
+
+<!--    User selectByActAndPwd(@Param("account") String account,@Param("passsword") String password);-->
+    <select id="selectByActAndPwd" resultMap="userMap">
+        select * from user_tbl where account = #{account} and password = #{password}
+    </select>
+
+<!--    User selectUserByPhone(@Param("phone") String phone);-->
+    <select id="selectUserByPhone" resultMap="userMap">
+        select * from user_tbl  where phone = #{phone}
+    </select>
+
+<!--    int addUser (User user);-->
+    <insert id="addUser">
+        insert into user_tbl values (null,#{account},#{password},#{sex},#{age},#{phone},#{userType},#{trueName})
+    </insert>
+
+<!--    int updateUser(User user);-->
+    <update id="updateUser">
+        update user_tbl set sex=#{sex},phone=#{phone},u_type=#{userType},u_true_name=#{trueName},age=#{age} WHERE account=#{account}
+    </update>
+
+</mapper>

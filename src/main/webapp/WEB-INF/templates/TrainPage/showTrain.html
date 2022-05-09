@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询车票</title>
+</head>
+<body>
+<h2 align="center">车票信息查询</h2>
+<script>
+    function validate(f) {
+        var date = f.dateValue;
+        var curDate = new Date();
+        var dateValue = new Date(date.value+"T00:00:00");
+        if ((/^$/).test(date.value)) {
+            alert("日期不能为空")
+            return false;
+        }else if (dateValue.getMonth()<curDate.getMonth()||dateValue.getDate() < curDate.getDate()) {
+            alert("请选择合适的日期")
+            return false;
+        }
+        return true;
+    }
+</script>
+<hr>
+<form th:action="@{/train/stationQuery}" method="post" onsubmit="return validate(this)">
+<table border="0" align="center">
+    <tr>
+        <td>始发站:<input type="text" name="firstStation" size="20"></td>
+        <td>终点站:<input type="text" name="finallyStation" size="20"></td>
+        <td>发车日期:<input type="date" name="dateValue" th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></td>
+        <td><input type="submit" value="查询"></td>
+    </tr>
+
+</table>
+</form>
+
+<center>
+    <div th:if="${#lists.isEmpty(trains)}">
+        <p style="color: #333333" th:text="抱歉根据您的查询条件找不到对应的车次信息"></p>
+    </div>
+</center>
+
+<table th:if="${!#lists.isEmpty(trains)}" border="1" width="1000px" height="600px" align="center">
+    <tr id="bg">
+        <th>车次</th>
+        <th>发车日期</th>
+        <th>出发时间</th>
+        <th>始发站</th>
+        <th>终点站</th>
+        <th>到达时间</th>
+        <th>剩余车票</th>
+        <th>价钱</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="train : ${trains}">
+        <td th:text="${train.trainNum}"></td>
+        <td th:text="${train.launchDate}"></td>
+        <td th:text="${train.launchTime}"></td>
+        <td th:text="${train.firstStation}"></td>
+        <td th:text="${train.finallyStation}"></td>
+        <td th:text="${train.arrivalTime}"></td>
+        <td th:text="${train.remainingTicket}"></td>
+        <td th:text="${train.price}"></td>
+        <td><a th:href="@{/addTicket(trainId=${train.trId})}">订票</a></td>
+    </tr>
+
+
+</table>
+</body>
+</html>

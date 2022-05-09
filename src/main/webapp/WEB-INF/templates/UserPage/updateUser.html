@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改个人资料</title>
+</head>
+<script>
+    function validate(f){
+        var sex = f.sex;
+        var type = f.userType;
+        if (sex.value!="男"&&sex.value!="女"){
+            alert("性别只能为男或女")
+            sex.focus();
+            sex.select();
+            return false;
+        }
+        if (type.value!="学生"&&type.value!="儿童"&&type.value!="成人"&&type.value!="残军"){
+            alert("用户类型只能是“学生、儿童、成人、残军")
+            type.focus();
+            type.select();
+            return false;
+        }
+    }
+</script>
+<body>
+<h2 align="center">修改信息</h2>
+<hr>
+<center><p style="color: red;font-size: 10px" th:text="${errMsg}"></p></center>
+
+<form method="post" th:action="@{/user/updateUserInfo}" onsubmit=" return validate(this)">
+    <input type="hidden" name="uid" th:value="${session.user.uid}" />
+    <input type="hidden" name="account" th:value="${session.user.account}" />
+    <input type="hidden" name="password" th:value="${session.user.password}" />
+<table align="center" border="2px" width="400px" height="200px">
+    <tr>
+        <td><label>真实姓名：</label>
+            <input type="text" name="trueName" th:value="${session.user.trueName}"></td>
+    </tr>
+    <tr>
+        <td>性别：<input name="sex" th:value="${session.user.sex}"></td>
+    </tr>
+    <tr>
+        <td><label>年龄：</label>
+            <input type="text" name="age" th:value="${session.user.age}" ></td>
+    </tr>
+    <tr>
+        <td><label>电话号码：</label>
+            <input type="text" name="phone" th:value="${session.user.phone}"></td>
+    </tr>
+
+    <tr>
+        <td><label>用户类型：</label>
+            <input name="userType" th:value="${session.user.userType}"></td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <input class="register" type="submit" value="修改" />
+            <input class="register"  type="button" onclick="history.back(-1)" value="取消" />
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

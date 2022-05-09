@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<center>
+    <div class="center">
+        <form th:action="@{/user/userLogin}" method="post" >
+        <table>
+            <caption>欢迎登录</caption>
+            <tr>
+                <td class="left">还未注册账号？<a th:href="@{/userRegister}">注册</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/adminLogin}">管理员登录</a></td>
+            </tr>
+            <tr>
+                <td class="left"><label>用&nbsp;&nbsp;户&nbsp;名</label>
+                    <input type="text" placeholder="请输入用户名" name="account"></td>
+            </tr>
+            <tr>
+                <td class="left"><label>登录密码</label>
+                    <input type="password" placeholder="请输入登录密码" name="password"></td>
+            </tr>
+            <tr><td style="color: red;font-size: 10px;" th:if="errMsg!=null" th:text="${errMsg}"></td></tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="" id="" class="check" />阅读并接受《用户协议》、《用户隐私协议》
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="register" type="submit" value="登录" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="register" type="reset" value="重置" />
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</center>
+</body>
+<style>
+    input{
+        color: #333333;
+    }
+</style>
+</html>

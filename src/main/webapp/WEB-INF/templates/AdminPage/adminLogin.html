@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登陆</title>
+    <link rel="stylesheet" th:href="@{/css/mglogin.css}" />
+</head>
+<body>
+<center>
+    <div class="center">
+        <form th:action="@{/admin/adminLogin}" method="post" >
+        <table>
+            <caption>欢迎登录</caption>
+            <tr>
+                <td class="left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/user/userLogin}">会员登录</a></td>
+            </tr>
+            <tr>
+                <td class="left"><label>用&nbsp;&nbsp;户&nbsp;名</label>
+                    <input type="text" placeholder="请输入用户名" name="account"></td>
+            </tr>
+            <tr>
+                <td class="left"><label>登录密码</label>
+                    <input type="password" placeholder="请输入登录密码" name="password"></td>
+            </tr>
+            <tr><td style="color: red;font-size: 10px;" th:text="${errMsg}"></td></tr>
+            <tr>
+                <td>
+                    <input class="register" type="submit" value="登录" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="register" type="reset" value="重置" />
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</center>
+</body>
+</html>

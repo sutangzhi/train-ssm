@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>网上购票系统，欢迎你！</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<div id="header">
+    <div id="left">
+        <p>欢迎使用火车票网上订票系统!</p>
+    </div>
+    <div id="right">
+        <ul>
+            <li><a th:href="@{/userLogin}">登录</a>|</li>
+            <li><a th:href="@{/userRegister}">注册</a>|</li>
+            <li><a th:href="@{/adminLogin}">管理员登录</a></li>
+        </ul>
+    </div>
+</div>
+<div id="nav">
+    <img th:if="${imgName}==null" th:src="@{/picture/980.jpg}" />
+    <img th:if="${imgName}!=null" th:src="@{'/upload/'+${imgName}}" />
+</div>
+<div id="content">
+    <center>
+        <iframe name="showcontent" th:src="@{/train/showTrain}" scrolling="yes"  width="80%" height="350px" frameborder="1"></iframe>
+    </center>
+</div>
+</body>
+<style>
+    #nav{
+        background-color: #333333;
+        width: 80%;
+        height: 320px;
+        margin-left: 10%;
+        margin-right: 10%;
+        /*background-image: url(../picture/980.jpg);*/
+        /*background-size: 100% 99%;*/
+        /*background-repeat: no-repeat;*/
+    }
+
+    #nav img{
+        height: 100%;
+        width: 100%;
+    }
+</style>
+</html>

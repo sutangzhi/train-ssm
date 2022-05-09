@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.train.dao.AdminDao">
+
+    <resultMap id="adminMap" type="Admin">
+        <id column="a_id" property="aid" />
+        <result column="account" property="account"/>
+        <result column="password" property="password" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age"/>
+        <result column="phone" property="phone"/>
+        <result column="p_true_name" property="trueName"/>
+    </resultMap>
+<!--    Admin getAdminByAccAndPwd(@Param("account") String account,@Param("password") String password);-->
+    <select id="getAdminByAccAndPwd" resultMap="adminMap">
+        select * from admin_tbl  where account=#{account} and password=#{password}
+    </select>
+
+<!--    Admin getAdminByAcc(@Param("account") String account);-->
+    <select id="getAdminByAcc" resultMap="adminMap">
+        select * from admin_tbl where account=#{account}
+    </select>
+</mapper>

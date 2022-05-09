@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>更换主页图片</title>
+</head>
+<body>
+<center>
+    <img th:if="${session.imgName}==null" th:src="@{/picture/980.jpg}" />
+    <img th:if="${session.imgName}!=null" th:src="@{'/upload/'+${session.imgName}}" />
+    <form method="post" th:action="@{/train/uploadImg}" enctype="multipart/form-data">
+        <input type="file" name="indexImg" />
+        <input type="submit" value="点击上传">
+    </form>
+</center>
+
+</body>
+<style>
+    img{
+        width: 70%;
+        height: 70%;
+    }
+</style>
+</html>

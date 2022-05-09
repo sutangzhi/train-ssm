@@ -1,0 +1,41 @@
+#header{
+	width: 80%;
+	height: 50px;
+	margin-left: 10%;
+	margin-right: 10%;
+	background: seagreen;
+}
+
+#left{
+	float: left;
+	width: 40%;
+	height: 100%;
+	color: white;
+	
+}
+
+a{
+	color: white;
+}
+
+#right{
+	color: white;
+	float: right;
+	width: 60%;
+	height: 100%;
+}
+
+#right ul{
+	list-style-type: none;
+	
+}
+
+#right ul li a{
+	margin: 1px 15px;
+	text-decoration: none;
+}
+
+#right li{
+	display: inline-block;
+}
+

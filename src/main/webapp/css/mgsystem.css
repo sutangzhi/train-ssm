@@ -1,0 +1,43 @@
+#header{
+	width: 80%;
+	height: 80px;
+	background-color: royalblue;
+	margin-left: 10%;
+	margin-right: 10%;
+	
+}
+
+#text{
+	text-align: left;
+	padding: 5px;
+	margin-left: 5%;
+	color: white;
+}
+
+a{
+	list-style-type: none;
+	color: white;
+	text-decoration: none;
+}
+
+#nav ul li{
+	list-style: none;
+
+}
+
+#left{
+	width: 15%;
+	height: 600px;
+	float: left;
+	margin-left: 10%;
+	background: mediumblue;
+	
+}
+
+#right{
+	width: 65%;
+	height: 600px;
+	float: right;
+	margin-right: 10%;
+	background: lightblue;
+}

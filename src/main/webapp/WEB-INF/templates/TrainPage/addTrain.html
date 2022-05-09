@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加车次</title>
+</head>
+<body>
+<script>
+    function validate(f){
+        var trainNum = f.trainNum;
+        var launchDate = f.launchDate;
+        var launchTime = f.launchTime;
+        var firstStation = f.firstStation;
+        var finallyStation = f.finallyStation;
+        var arrivalTime = f.arrivalTime;
+        var remainingTicket = f.remainingTicket;
+        var price = f.price;
+        var currDate = new Date();
+        var launchDateTime = new Date(launchDate.value+"T"+launchTime.value) //发车日期时间
+        var arrivalDateTime = new Date(arrivalTime.value)   //到站日期时间
+
+        if ((/^$/).test(trainNum.value)){
+            alert("车次编号不能为空")
+            trainNum.focus();
+            trainNum.select();
+            return false;
+        }
+        if ((/^$/).test(launchDate.value)){
+            alert("发车日期不能为空！")
+            return false;
+        }
+        if ((/^$/).test(launchTime.value)){
+            alert("发车时间不能为空！")
+            return false;
+        }
+        if ((/^$/).test(firstStation.value)){
+            alert("发车站不能为空");
+            firstStation.focus();
+            firstStation.select();
+            return false;
+        }
+        if ((/^$/.test(finallyStation.value))){
+            alert("终点站不能为空");
+            finallyStation.focus();
+            finallyStation.select();
+            return false;
+        }
+        if ((/^$/.test(arrivalTime.value))){
+            alert("到站时间不能为空");
+            return false;
+        }
+        if (!(/^\d+$/.test(remainingTicket.value))){
+            alert("剩余票数必须为数字");
+            remainingTicket.focus();
+            remainingTicket.select();
+            return false;
+        }
+        if (!(/^[1-9]+\.?\d*$/.test(price.value))){
+            alert("价格必须为数字");
+            price.focus();
+            price.select();
+            return false;
+        }
+        if (launchDateTime.getTime()<=currDate.getTime()){
+            alert("发车日期不能在当前日期之前")
+            return false;
+        }
+        if (arrivalDateTime.getTime()<launchDateTime.getTime()){
+            alert("到达时间不能在发车时间之前")
+            return false
+        }
+        return true;
+    }
+</script>
+<h2 align="center">列车车次添加</h2>
+<hr>
+<table align="center" border="2px" width="400px" height="200px">
+    <form th:action="@{/train/addTrain}" method="post" onsubmit="return validate(this)">
+    <tr><td>车次：<input type="text" name="trainNum"></td></tr>
+    <tr><td>出发日期：<input type="date" name="launchDate"></td></tr>
+    <tr><td>出发时间：<input type="time" name="launchTime"></td></tr>
+    <tr><td>始发站：<input type="text" name="firstStation"></td></tr>
+    <tr><td>终点站：<input type="text" name="finallyStation"></td></tr>
+    <tr><td>到达时间：<input type="datetime-local" name="arrivalTime"></td></tr>
+    <tr><td>剩余车票：<input type="text" name="remainingTicket"></td></tr>
+    <tr><td>价钱：<input type="text" name="price"></td></tr>
+    <tr><td style="color: red;font-size: 10px;text-align: center" th:text="${errMsg}"></td></tr>
+    <tr><td align="center"><input type="submit" value="添加">
+        <input type="reset" onclick="window.history.back()" value="取消"></td></tr>
+    </form>
+</table>
+
+</body>
+</html>

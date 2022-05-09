@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>车次信息修改</title>
+</head>
+<body>
+<script>
+    function delConfirm(){
+        var isOk = confirm("确定删除该车次?");
+        if (!isOk)
+            event.preventDefault();
+        return;
+    }
+</script>
+<h2 align="center">车次信息修改</h2>
+<hr>
+<table border="1" width="800x" height="400px" align="center">
+    <tr id="bg">
+        <th>车次</th>
+        <th>发车日期</th>
+        <th>出发时间</th>
+        <th>始发站</th>
+        <th>终点站</th>
+        <th>到达时间</th>
+        <th>剩余车票</th>
+        <th>价钱</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="train : ${trains}">
+        <td th:text="${train.trainNum}"></td>
+        <td th:text="${train.launchDate}"></td>
+        <td th:text="${train.launchTime}"></td>
+        <td th:text="${train.firstStation}"></td>
+        <td th:text="${train.finallyStation}"></td>
+        <td th:text="${train.arrivalTime}"></td>
+        <td th:text="${train.remainingTicket}"></td>
+        <td th:text="${train.price}"></td>
+        <td><a th:href="@{/train/updateTrain(trainNum=${train.trainNum})}"
+            target="showcontent1">修改</a><br>
+            <a onclick="delConfirm()" th:href="@{/train/deleteTrain(trainNum=${train.trainNum})}">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>

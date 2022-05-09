@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.train.dao.TrainDao">
+
+    <resultMap id="trainMap" type="Train">
+        <id column="tr_id" property="trId"/>
+        <result column="train_num" property="trainNum" />
+        <result column="launch_time" property="launchTime" />
+        <result column="first_station" property="firstStation" />
+        <result column="finally_station" property="finallyStation"/>
+        <result column="arrival_time" property="arrivalTime"/>
+        <result column="remaining_ticket" property="remainingTicket"/>
+        <result column="price" property="price"/>
+        <result column="launch_date" property="launchDate"/>
+    </resultMap>
+
+<!--    ArrayList<Train> getAllTrainList();-->
+    <select id="getAllTrainList" resultMap="trainMap">
+        select * from train_tbl
+    </select>
+
+<!--    ArrayList<Train> stationQuery(String firstStation,String finallyStation,String dateValue);-->
+    <select id="stationQuery" resultMap="trainMap">
+        select * from train_tbl
+        <where>
+            <if test=" firstStation!=null and firstStation!= '' ">
+                and first_station like "%${firstStation}%"
+            </if>
+            <if test="finallyStation!=null and finallyStation!='' ">
+                and finally_station like "%${finallyStation}%"
+            </if>
+            <if test="dateValue!=null and dateValue!='' ">
+                and launch_date = #{dateValue}
+            </if>
+        </where>
+    </select>
+
+<!--    Train getTrainByNum(@Param("trainNum") String trainNum);-->
+    <select id="getTrainByNum" resultMap="trainMap">
+        select * from train_tbl where train_num = #{trainNum}
+    </select>
+
+<!--    String addTrain(Train train);-->
+    <insert id="addTrain">
+        insert into train_tbl values
+        (null,#{trainNum},#{launchTime},#{firstStation},#{finallyStation},#{arrivalTime},#{remainingTicket},#{price},#{launchDate})
+    </insert>
+
+<!--    void updateTrain(Train newTrain);-->
+    <update id="updateTrain">
+        update train_tbl
+        set launch_date=#{launchDate},launch_time=#{launchTime},first_station=#{firstStation},
+                             finally_station=#{finallyStation},arrival_time=#{arrivalTime},remaining_ticket=#{remainingTicket},
+                             price=#{price}
+        where train_num=#{trainNum}
+    </update>
+
+<!--    void deleteTrain(String trainNum);-->
+    <delete id="deleteTrain">
+        delete from train_tbl where train_num = #{trainNum}
+    </delete>
+
+    <!--    String getImgName();-->
+    <select id="getImgName" resultType="String">
+        select img_name from image_tbl where id = 1
+    </select>
+
+<!--    void updateImgName(@Param("imgName") String imgName);-->
+    <update id="updateImgName">
+        update image_tbl set img_name=#{imgName} where id=1
+    </update>
+</mapper>

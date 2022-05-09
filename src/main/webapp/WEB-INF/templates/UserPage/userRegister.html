@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+<script>
+    function validate(f){
+        var account = f.account;
+        var password = f.password;
+        var pwdConfirm = f.pwdConfirm
+        var age = f.age;
+        var trueName = f.trueName;
+        var phone = f.phone;
+        var sex = f.sex;
+        var userType = f.userType;
+
+
+        if ((/^$/).test(userType.value)){
+            alert("用户身份不能为空！")
+            return false;
+        }
+
+        if ((/^$/).test(sex.value)){
+            alert("性别不能为空！")
+            return false;
+        }
+
+        if ((/^$/).test(trueName.value)){
+            alert("真实姓名不能为空！")
+            trueName.focus();
+            trueName.select();
+            return false;
+        }
+
+        if (!(/^\d{11}$/).test(phone.value)){
+            alert("输入正确的11位手机号码！");
+            phone.focus();
+            phone.select();
+            return false;
+        }
+        if (!(/^\w{5,15}$/.test(account.value))){
+            alert("用户名必须是5-15位！");
+            account.focus();
+            account.select();
+            return false;
+        }
+        if (!(/^\w{5,15}$/.test(password.value))){
+            alert("密码必须是5-15位！");
+            password.focus();
+            password.select();
+            return false;
+        }
+        if (password.value!==pwdConfirm.value){
+            alert("两次密码必须保持一致！")
+            pwdConfirm.focus();
+            pwdConfirm.select();
+            return false;
+        }
+
+        if (!(/^\d+$/.test(age.value))){
+            alert("年龄必须是数字！");
+            age.focus();
+            age.value="";
+            return false;
+        }
+        if (age.value>200||age.value<0){
+            alert("年龄必须在0到200岁之间！");
+            age.focus();
+            age.select();
+            return false;
+        }
+        return true;
+    }
+</script>
+<center>
+    <div class="center">
+        <form th:action="@{/user/userRegister}" method="post" onsubmit="return validate(this)">
+        <table>
+            <caption>欢迎注册</caption>
+            <tr>
+                <td class="left">已经有账号？<a th:href="@{/userLogin}">登录</a></td>
+            </tr>
+            <tr>
+                <td><label>用&nbsp;&nbsp;户&nbsp;名</label>
+                    <input type="text" placeholder="请设置账户" name="account"></td>
+            </tr>
+            <tr>
+                <td><label>登录密码</label>
+                    <input type="password" placeholder="请设置登录密码" name="password"></td>
+            </tr>
+            <tr>
+                <td><label>密码确认</label>
+                    <input type="password" placeholder="请确认登录密码" name="pwdConfirm"></td>
+            </tr>
+            <tr>
+                <td><label>性别</label>
+                    <input type="radio" id="man" checked="checked" name="sex" value="男"/>男
+                    <input type="radio" id="women" name="sex" value="女">女</td>
+            </tr>
+            <tr>
+                <td><label>年龄</label>
+                    <input type="text" placeholder="请输入年龄" name="age"></td>
+            </tr>
+            <tr>
+                <td><label>电话号码</label>
+                    <input type="text" placeholder="请输入电话号码" name="phone"></td>
+            </tr>
+            <tr>
+                <td><label>真实姓名</label>
+                    <input type="text" placeholder="请输入真实姓名"  name="trueName"></td>
+            </tr>
+            <tr>
+                <td><label>用户类型</label>
+                    <select name="userType">
+                        <option value="成人">成人</option>
+                        <option value="儿童">儿童</option>
+                        <option value="学生">学生</option>
+                        <option value="残军">残军</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="color: red;font-size: 10px" colspan="2" class="errorClass" th:text="${errMsg}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="register" type="submit" value="注册" />
+                </td>
+            </tr>
+            <tr><td><input class="register" type="reset" value="重置" /></td></tr>
+            <tr>
+                <td>
+                    <input type="checkbox" class="check" />阅读并接受《用户协议》、《用户隐私协议》
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</center>
+</body>
+</html>
